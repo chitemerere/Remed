@@ -1165,7 +1165,7 @@ if password_guess == st.secrets["password"]:
                         plt.axis('off')
 
                         # Display the plot in Streamlit
-                        st.pyplot(fig)
+                        st.pyplot()
                                             
                         # Create a new figure for 3D plotting
                         fig = plt.figure()
