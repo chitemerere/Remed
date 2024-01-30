@@ -28,6 +28,7 @@ import plotly.express as px
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from wordcloud import WordCloud
 import nltk
+import squarify
 
 # Download NLTK vader_lexicon if not already downloaded
 try:
@@ -1149,16 +1150,19 @@ if password_guess == st.secrets["password"]:
                         ax.set_title('Customer Count per Segment')
                         
                         # Create a Square Plot
-                        fig, ax = plt.figure(figsize=(10,6)
+                        fig, ax = plt.figure(figsize=(10,6))
                                              
                         squarify.plot(sizes = segment_product_counts['Count'],
                                       label = segment_product_counts.apply(lamda x: f"{x['Value Segment']}" - {x['RFM Customer Segments']}", axis= 1),
                                       color = sns.color_palette("flare"),
                                       alpha = 0.7)
+                                      
+                        plt.title("RFM Customer Segments by Values")
+                        plt.axis('off')
 
                         # Display the plot in Streamlit
                         st.pyplot(fig)
-                        
+                                            
                         # Create a new figure for 3D plotting
                         fig = plt.figure()
                         ax = fig.add_subplot(111, projection='3d')
