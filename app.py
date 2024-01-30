@@ -1149,19 +1149,23 @@ if password_guess == st.secrets["password"]:
                         ax.set_ylabel('Segment')
                         ax.set_title('Customer Count per Segment')
                         
-#                         # Create a Square Plot
-#                         fig, ax = plt.figure(figsize=(10,6))
+                        # Create a Square Plot
+                        fig, ax = plt.figure(figsize=(10,6))
                                              
-#                         squarify.plot(sizes = segment_product_counts['Count'],
-#                                       label = segment_product_counts.apply(lamda x:f"{x['Value Segment']}" - {x['RFM Customer Segments']}", axis= 1),
-#                                       color = sns.color_palette("flare"),
-#                                       alpha = 0.7)
-                                      
-#                         plt.title("RFM Customer Segments by Values")
-#                         plt.axis('off')
+                        # Extract labels as a list
+                        labels = segment_product_counts.apply(lambda x: f"{x['Value Segment']} - {x['RFM Customer Segments']}", axis=1).tolist()
 
-#                         # Display the plot in Streamlit
-#                         st.pyplot(fig)
+                        # Create the treemap plot
+                        squarify.plot(sizes=segment_product_counts['Count'],
+                                      label=labels,
+                                      color=sns.color_palette("flare"),
+                                      alpha=0.7)
+
+                        plt.title("RFM Customer Segments by Values")
+                        plt.axis('off')
+
+                        # Display the plot in Streamlit
+                        st.pyplot(fig)
                                             
                         # Create a new figure for 3D plotting
                         fig = plt.figure()
