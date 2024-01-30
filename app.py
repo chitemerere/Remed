@@ -28,7 +28,6 @@ import plotly.express as px
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from wordcloud import WordCloud
 import nltk
-import squarify
 
 # Download NLTK vader_lexicon if not already downloaded
 try:
@@ -115,7 +114,7 @@ def cluster_segments (rfm):
 
 # Streamlit application layout
 st.image("logo.png", width=200)
-st.markdown("<h1 style='font-size:30px;'>Remed Pharmaceuticals Sales Analysis Dashboard</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='font-size:30px;'>Takanaka Healthcare Sales Analysis Dashboard</h1>", unsafe_allow_html=True)
 
 # Sidebar for navigation
 st.sidebar.title('Navigation')
@@ -1148,25 +1147,10 @@ if password_guess == st.secrets["password"]:
                         ax.set_xlabel('Customer Count')
                         ax.set_ylabel('Segment')
                         ax.set_title('Customer Count per Segment')
-                        
-                        # Create a Square Plot
-#                         fig, ax = plt.figure(figsize=(10,6))
-                                             
-                        # Extract labels as a list
-                        labels = segment_product_counts.apply(lambda x: f"{x['Value Segment']} - {x['RFM Customer Segments']}", axis=1).tolist()
-
-                        # Create the treemap plot
-                        squarify.plot(sizes=segment_product_counts['Count'],
-                                      label=labels,
-                                      color=sns.color_palette("flare"),
-                                      alpha=0.7)
-
-                        plt.title("RFM Customer Segments by Values")
-                        plt.axis('off')
 
                         # Display the plot in Streamlit
-                        st.pyplot(plt.gcf())  # Use plt.gcf() to get the current figure
-                                            
+                        st.pyplot(fig)
+                        
                         # Create a new figure for 3D plotting
                         fig = plt.figure()
                         ax = fig.add_subplot(111, projection='3d')
