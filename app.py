@@ -1150,7 +1150,7 @@ if password_guess == st.secrets["password"]:
                         ax.set_title('Customer Count per Segment')
                         
                         # Create a Square Plot
-                        fig, ax = plt.figure(figsize=(10,6))
+#                         fig, ax = plt.figure(figsize=(10,6))
                                              
                         # Extract labels as a list
                         labels = segment_product_counts.apply(lambda x: f"{x['Value Segment']} - {x['RFM Customer Segments']}", axis=1).tolist()
@@ -1165,7 +1165,7 @@ if password_guess == st.secrets["password"]:
                         plt.axis('off')
 
                         # Display the plot in Streamlit
-                        st.pyplot()
+                        st.pyplot(plt.gcf())  # Use plt.gcf() to get the current figure
                                             
                         # Create a new figure for 3D plotting
                         fig = plt.figure()
