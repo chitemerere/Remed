@@ -124,7 +124,7 @@ def calculate_nps(scores):
 
 # Streamlit application layout
 st.image("logo.png", width=200)
-st.markdown("<h1 style='font-size:30px;'>Varichem Pharmaceuticals Sales Analysis Dashboard</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='font-size:30px;'>Remed Pharmaceuticals Sales Analysis Dashboard</h1>", unsafe_allow_html=True)
 
 # Sidebar for navigation
 st.sidebar.title('Navigation')
@@ -1161,14 +1161,20 @@ if password_guess == st.secrets["password"]:
                         # Display the plot in Streamlit
                         st.pyplot(fig)
                                                                                              
-                        # Create a treemap chart
-                        fig = px.treemap(segment_table, path=['Segment'], values='Customer Count')
+#                         # Extract labels as a list
+#                         labels = segment_product_counts.apply(lambda x: f"{x['Customer Count']} - {x['Segment']}", axis=1).tolist()
 
-                        # Set chart title
-                        fig.update_layout(title='Customer Count per Segment (Treemap)')
+#                         # Create the treemap plot
+#                         squarify.plot(sizes=segment_product_counts['Count'],
+#                                       label=labels,
+#                                       color=sns.color_palette("flare"),
+#                                       alpha=0.7)
 
-                        # Display the treemap chart in Streamlit
-                        st.plotly_chart(fig)
+#                         plt.title("RFM Customer Segments Count")
+#                         plt.axis('off')
+
+#                         # Display the plot in Streamlit
+#                         st.pyplot(plt.gcf())  # Use plt.gcf() to get the current figure
                                             
                         # Create a new figure for 3D plotting
                         fig = plt.figure()
@@ -1312,9 +1318,21 @@ if password_guess == st.secrets["password"]:
                     period_nps = data.groupby('Period')['Score'].apply(calculate_nps).reset_index(name='NPS')
                     st.write("Net Promoter Score for each Period:")
                     st.write(period_nps)
+                    
+                    # Plotting NPS by period
+                    st.write("NPS Trend Over Periods:")
+                    plt.figure(figsize=(10, 6))
+                    period_nps.plot(kind='bar', color='skyblue')
+                    plt.title('Net Promoter Score by Period')
+                    plt.xlabel('Period')
+                    plt.ylabel('Net Promoter Score')
+                    plt.xticks(rotation=45)
+                    plt.grid(axis='y')
+                    st.pyplot(plt)
+                    
                 else:
                     st.error("CSV file must have columns named 'Period' and 'Score'")
-
+        
     else:
         st.warning('Please upload a CSV file to proceed.')
 
