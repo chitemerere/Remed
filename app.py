@@ -124,7 +124,7 @@ def calculate_nps(scores):
 
 # Streamlit application layout
 st.image("logo.png", width=200)
-st.markdown("<h1 style='font-size:30px;'>Remed Pharmaceuticals Sales Analysis Dashboard</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='font-size:30px;'>Varichem Pharmaceuticals Sales Analysis Dashboard</h1>", unsafe_allow_html=True)
 
 # Sidebar for navigation
 st.sidebar.title('Navigation')
@@ -1161,20 +1161,14 @@ if password_guess == st.secrets["password"]:
                         # Display the plot in Streamlit
                         st.pyplot(fig)
                                                                                              
-#                         # Extract labels as a list
-#                         labels = segment_product_counts.apply(lambda x: f"{x['Customer Count']} - {x['Segment']}", axis=1).tolist()
+                        # Create a treemap chart
+                        fig = px.treemap(segment_table, path=['Segment'], values='Customer Count')
 
-#                         # Create the treemap plot
-#                         squarify.plot(sizes=segment_product_counts['Count'],
-#                                       label=labels,
-#                                       color=sns.color_palette("flare"),
-#                                       alpha=0.7)
+                        # Set chart title
+                        fig.update_layout(title='Customer Count per Segment (Treemap)')
 
-#                         plt.title("RFM Customer Segments Count")
-#                         plt.axis('off')
-
-#                         # Display the plot in Streamlit
-#                         st.pyplot(plt.gcf())  # Use plt.gcf() to get the current figure
+                        # Display the treemap chart in Streamlit
+                        st.plotly_chart(fig)
                                             
                         # Create a new figure for 3D plotting
                         fig = plt.figure()
